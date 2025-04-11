@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Loan EMI Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="{% static 'emi.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fa-solid fa-house-chimney icon"></i> Home Loan <span class="highlight">EMI</span> Calculator</h1>
+        <p>A Home Loan EMI Calculator is an online tool that helps you calculate your monthly loan installment.</p>
+        <div class="tabs">
+            <button class="active">EMI Calculation</button>
+            <button>Repayment Details</button>
+        </div>
+        <div class="calc-type">
+            <button class="active">Basic Calculation</button>
+            <span>or</span>
+            <button>Advance Calculation</button>
+        </div>
+        <div class="slider-container">
+            <label>Loan Amount (₹)</label>
+            <input type="range" min="100000" max="15000000" value="1000000" class="slider" id="loanAmount">
+            <input type="text" value="10,00,000" class="input-box" id="loanAmountDisplay">
+        </div>
+        <div class="slider-container">
+            <label>Interest Rate (p.a)</label>
+            <input type="range" min="0" max="20" value="10.5" class="slider" id="interestRate">
+            <input type="text" value="10.5%" class="input-box" id="interestRateDisplay">
+        </div>
+        <div class="slider-container">
+            <label>Tenure (years)</label>
+            <input type="range" min="1" max="30" value="20" class="slider" id="tenure">
+            <input type="text" value="20 Yr" class="input-box" id="tenureDisplay">
+        </div>
+        <div class="result">
+            <h2>₹ <span id="emiAmount">9,147</span></h2>
+            <p>Your Monthly EMI</p>
+            <p>Total Interest Payable: <b>₹ <span id="totalInterest">22,93,061</span></b></p>
+            <p>Total Payment: <b>₹ <span id="totalPayment">32,93,061</span></b></p>
+        </div>
+        <div class="chart">
+            <div class="pie-chart"></div>
+            <div class="legend">
+                <span class="principal"></span> Principal Loan Amount  
+                <span class="interest"></span> Total Interest  
+            </div>
+        </div>
+        <button class="share-btn">Share EMI Payment Details</button>
+    </div>
+    <script src="{% static 'emi.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+{% extends "user/base.html" %}
+{% block content %}
+<div class="main-content">
+    <header>
+      <div class="header-tabs">
+        <div class="tab active">Overview</div>
+        <div class="tab">Integrations</div>
+        <div class="tab">Reports</div>
+      </div>
+      <div class="header-right">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search">
+        </div>
+        <div class="notifications">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="user-profile">
+            <span>{{ request.user.username }}</span>
+        </div>
+      </div>
+    </header>
+    
+    <div class="dashboard-content">
+      <div class="balance-section">
+        <div class="balance-header">
+          <div>
+            <h3>Total balance</h3>
+            <h1 id="total-balance">$150,759,000.99</h1>
+            <span class="percentage positive">+10% from last month</span>
+          </div>
+          <div class="period-selector">
+            <span>Monthly</span>
+            <i class="fas fa-chevron-down"></i>
+            <button class="export-btn">
+              <i class="fas fa-download"></i>
+              Export
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="card-icon income">
+            <i class="fas fa-arrow-down"></i>
+          </div>
+          <div class="card-content">
+            <h3>Total income</h3>
+            <h2 id="income">$ 24,725.99</h2>
+            <div class="card-footer">
+              <span class="percentage positive">+10%</span>
+              <span class="period">from last month</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="card-icon expenses">
+            <i class="fas fa-arrow-up"></i>
+          </div>
+          <div class="card-content">
+            <h3>Total expenses</h3>
+            <h2 id="expense">$ 9,938.14</h2>
+            <div class="card-footer">
+              <span class="percentage negative">-5%</span>
+              <span class="period">from last month</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="card-icon loans">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+          <div class="card-content">
+            <h3 id="loan">Total loans</h3>
+            <h2>$ 52,749.12</h2>
+            <div class="card-footer">
+              <span class="percentage positive">+8%</span>
+              <span class="period">from last month</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="card-icon savings">
+            <i class="fas fa-piggy-bank"></i>
+          </div>
+          <div class="card-content">
+            <h3>Total savings</h3>
+            <h2 id="saving">$ 3,328.42</h2>
+            <div class="card-footer">
+              <span class="percentage positive">+6%</span>
+              <span class="period">from last month</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chart-section">
+        <div class="section-header">
+          <h3>Statistics</h3>
+          <div class="period-selector">
+            <span>Monthly</span>
+            <i class="fas fa-chevron-down"></i>
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="financialChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="bottom-sections">
+        <div class="transactions-section">
+          <div class="section-header">
+            <h3>Latest transactions</h3>
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+          <table class="transactions-table">
+            <thead>
+              <tr>
+                <th>Transaction type</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="transactions-body">
+                <form class="form" method="POST" action="{% url 'dashboard' %}">
+                    {% csrf_token %}
+                <tr id="finance-form-row">
+                    <td>
+                        <select id="transaction-type" required name="types">
+                            <option value="Expense">Expense</option>
+                            <option value="Income">Income</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" id="transaction-name" placeholder="Enter name" required name="description">
+                    </td>
+                    <td>
+                        <input type="text" id="transaction-date" name="date">
+                    </td>
+                    <td>
+                        <input type="number" id="transaction-amount" placeholder="Amount" step="0.01" required name="amount">
+                    </td>
+                    <td>
+                        <select id="transaction-status" required name="category">
+                            <option value="Travel">Travel</option>
+                            <option value="Food">Food</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Health">Health</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button id="add-transaction" class="btn" type="submit">Add</button>
+                    </td>
+                    {% for record in finance_data %}
+                  <tr>
+                      <td>{{ record.type }}</td>
+                      <td>{{ record.name }}</td>
+                      <td>{{ record.date }}</td>
+                      <td>{{ record.amount }}</td>
+                      <td>{{ record.category }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                      <td colspan="4">No finance records found.</td>
+                  </tr>
+                  {% endfor %}
+                </form>
+                </tr>
+              <!-- Transactions will be added here by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="financial-statement">
+          <div class="section-header">
+            <h3>Category Wise Expense</h3>
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <div class="statement-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Percent</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Products</td>
+                  <td><div class="percent-bar blue" style="width: 30%"></div> 30%</td>
+                  <td>$3500.12</td>
+                </tr>
+                <tr>
+                  <td>Services</td>
+                  <td><div class="percent-bar orange" style="width: 60%"></div> 60%</td>
+                  <td>$5124.58</td>
+                </tr>
+                <tr>
+                  <td>Stocks</td>
+                  <td><div class="percent-bar red" style="width: 30%"></div> 30%</td>
+                  <td>$540.31</td>
+                </tr>
+                <tr>
+                  <td>Subscriptions</td>
+                  <td><div class="percent-bar purple" style="width: 6%"></div> 6%</td>
+                  <td>$239.83</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function calculateTotalIncome() {
+        let totalIncome = 0;
+        let totalExpense = 0;
+        let rows = document.querySelectorAll("#transactions-body tr");
+    
+        rows.forEach(row => {
+            let type = row.cells[0].innerText.trim(); // Get transaction type
+            let amount = parseFloat(row.cells[3].innerText.trim()); // Get amount
+    
+            if (type === "Income" && !isNaN(amount)) {
+                totalIncome += amount;
+            }
+            if (type === "Expense" && !isNaN(amount)) {
+                totalExpense += amount;
+            }
+        });
+    
+        document.getElementById("income").innerText = `₹${totalIncome.toFixed(2)}`;
+        document.getElementById("expense").innerText = `₹${totalExpense.toFixed(2)}`;
+    }
+    
+        setTimeout(calculateTotalIncome, 1000); // Delay to ensure the row is added before calculation
+    </script>
+    
+{% endblock content %}

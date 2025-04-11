@@ -1,0 +1,849 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>LoanEase - Clear loan early</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+        --primary-color: #0e8a8a;
+        --primary-dark: #006666;
+        --secondary-color: #f5f7fa;
+        --text-color: #333;
+        --text-light: #666;
+        --white: #fff;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        background-color: var(--secondary-color);
+      }
+      
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      
+      button {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        font-family: inherit;
+      }
+      
+      /* Header & Navigation */
+      header {
+        background-color: var(--white);
+        padding: 1rem 5%;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+      
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 70px;
+      }
+      
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+      
+      .nav-links a {
+        font-weight: 500;
+        transition: var(--transition);
+      }
+      
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+      
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      
+      .login-btn {
+        font-weight: 500;
+      }
+      
+      .signup-btn {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 0.5rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+      
+      .signup-btn:hover {
+        background-color: var(--primary-dark);
+      }
+      
+      /* Hero Section */
+      .hero {
+        display: flex;
+        padding: 5rem 5%;
+        gap: 4rem;
+        background-color: var(--white);
+      }
+      
+      .hero-content {
+        flex: 1;
+        max-width: 600px;
+      }
+      
+      .hero h1 {
+        font-size: 3rem;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+      }
+      
+      .hero p {
+        color: var(--text-light);
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+      }
+      
+      .email-signup {
+        display: flex;
+        margin-bottom: 2rem;
+      }
+      
+      .email-signup input {
+        flex: 1;
+        padding: 0.8rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius) 0 0 var(--border-radius);
+        font-size: 1rem;
+      }
+      
+      .get-started-btn {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 0.8rem 1.5rem;
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+      
+      .get-started-btn:hover {
+        background-color: var(--primary-dark);
+      }
+      
+      .partners {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+      
+      .partners img {
+        height: 30px;
+        opacity: 0.7;
+      }
+      
+      /* Card Preview */
+      .hero-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .card-preview {
+        background-color: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        width: 350px;
+        box-shadow: var(--box-shadow);
+      }
+      
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .card-logo {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-color);
+        border-radius: 8px;
+      }
+      
+      .card-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      
+      .card-subtitle {
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+      
+      .card-balance {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+      
+      .card-visual {
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+        color: var(--white);
+        border-radius: 12px;
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        height: 150px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .card-chip {
+        width: 40px;
+        height: 30px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+      }
+      
+      .card-brand {
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+      
+      .card-actions {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .card-action {
+        flex: 1;
+        padding: 0.8rem;
+        background-color: var(--secondary-color);
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-align: center;
+        transition: var(--transition);
+      }
+      
+      .card-action:hover {
+        background-color: #e5e8ed;
+      }
+      
+      .action-button {
+        width: 100%;
+        padding: 1rem;
+        background-color: #1a2e44;
+        color: var(--white);
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+      
+      .action-button:hover {
+        background-color: #0f1a29;
+      }
+      
+      /* Features Section */
+      .features {
+        padding: 5rem 5%;
+        background-color: var(--white);
+      }
+      
+      .section-label {
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .section-header {
+        margin-bottom: 2rem;
+      }
+      
+      .section-header h2 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      
+      .feature-description {
+        max-width: 500px;
+        margin-bottom: 3rem;
+        color: var(--text-light);
+      }
+      
+      .feature-cards {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+      }
+      
+      .feature-card {
+        flex: 1;
+        max-width: 350px;
+      }
+      
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .transfers-icon::before {
+        content: "💸";
+        font-size: 1.5rem;
+      }
+      
+      .account-icon::before {
+        content: "🏦";
+        font-size: 1.5rem;
+      }
+      
+      .security-icon::before {
+        content: "🔒";
+        font-size: 1.5rem;
+      }
+      
+      .feature-card h3 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+      }
+      
+      .feature-card p {
+        color: var(--text-light);
+      }
+      
+      /* Testimonials Section */
+      .testimonials {
+        padding: 5rem 5%;
+        background-color: var(--white);
+      }
+      
+      .section-divider {
+        width: 50px;
+        height: 2px;
+        background-color: var(--primary-color);
+        margin-bottom: 2rem;
+      }
+      
+      .testimonials h2 {
+        font-size: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      
+      .stat-card, .feature-highlight, .chart-card {
+        background-color: var(--secondary-color);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+      }
+      
+      .stat-number {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+      
+      .feature-highlight h3 {
+        margin-bottom: 2rem;
+      }
+      
+      .app-icons {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .app-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background-color: var(--white);
+      }
+      
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+      
+      .chart-filter {
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+      
+      .chart {
+        height: 150px;
+        background: linear-gradient(to top right, #e5e8ed, var(--white));
+        border-radius: var(--border-radius);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      /* Reserve Account Section */
+      .reserve-account {
+        background-color: #1a2e44;
+        color: var(--white);
+        padding: 5rem 5%;
+      }
+      
+      .reserve-account h2 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+      
+      .steps-container {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+      }
+      
+      .step {
+        flex: 1;
+        max-width: 300px;
+      }
+      
+      .step-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.3);
+        margin-bottom: 1rem;
+      }
+      
+      .step h3 {
+        margin-bottom: 1rem;
+      }
+      
+      .step p {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      
+      /* Companies Section */
+      .companies {
+        padding: 5rem 5%;
+        text-align: center;
+        background-color: var(--white);
+      }
+      
+      .companies h2 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+      
+      .companies > p {
+        color: var(--text-light);
+        max-width: 600px;
+        margin: 0 auto 3rem;
+      }
+      
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+      }
+      
+      .stat h2 {
+        font-size: 2.5rem;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+      
+      .stat p {
+        color: var(--text-light);
+      }
+      
+      /* Pricing Section */
+      .pricing {
+        padding: 5rem 5%;
+        background-color: var(--white);
+      }
+      
+      .pricing h3 {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: var(--text-light);
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      
+      .pricing-cards {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+      }
+      
+      .pricing-card {
+        background-color: var(--secondary-color);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: var(--transition);
+      }
+      
+      .pricing-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .pricing-card.premium {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+      
+      .price {
+        font-weight: 600;
+      }
+      
+      .arrow-icon {
+        font-size: 1.5rem;
+      }
+      
+      /* CTA Section */
+      .cta {
+        background-color: #1a2e44;
+        color: var(--white);
+        padding: 5rem 5%;
+        margin-top: 5rem;
+      }
+      
+      .cta-content {
+        max-width: 800px;
+      }
+      
+      .cta h2 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+      
+      .cta p {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 2rem;
+      }
+      
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .learn-more-btn {
+        background-color: transparent;
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+      
+      .learn-more-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      /* Footer */
+      footer {
+        background-color: var(--white);
+        padding: 5rem 5% 2rem;
+      }
+      
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+      }
+      
+      .footer-logo img {
+        height: 40px;
+        margin-bottom: 1rem;
+      }
+      
+      .footer-links {
+        display: flex;
+        gap: 4rem;
+      }
+      
+      .footer-column h4 {
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+      }
+      
+      .footer-column a {
+        display: block;
+        margin-bottom: 0.8rem;
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+      
+      .footer-column a:hover {
+        color: var(--primary-color);
+      }
+      
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+      }
+      
+      .social-icon:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+      
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid #eee;
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+      
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .hero {
+          flex-direction: column;
+        }
+        
+        .feature-cards, .steps-container {
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .testimonial-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .footer-top {
+          flex-direction: column;
+          gap: 3rem;
+        }
+        
+        .footer-links {
+          flex-direction: column;
+          gap: 2rem;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+        
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        
+        .email-signup {
+          flex-direction: column;
+        }
+        
+        .email-signup input {
+          border-radius: var(--border-radius);
+          margin-bottom: 1rem;
+        }
+        
+        .get-started-btn {
+          border-radius: var(--border-radius);
+        }
+        
+        .stats {
+          flex-direction: column;
+          gap: 2rem;
+        }
+        
+        .pricing-cards {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="logo1.jpg" alt="Finpay Logo" />
+      </div>
+      <div class="nav-links">
+        <a href="{% url 'emi' %}">EMI Calculator</a>
+        <a href="{% url 'emi' %}">Finance Tracking</a>
+        <a href="#">Pricing</a>
+        <a href="#">Learn</a>
+      </div>
+      <div class="auth-buttons">
+        <a href="{% url "login" %}" class="login-btn">Login</a>
+        <a href="{% url "register" %}" class="signup-btn">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Clear loan early<br />save money for<br />all your pay.</h1>
+        <p>Supports middle class family with simple tools, powerful integrations, and cash flow management tools.</p>
+        <div class="email-signup">
+          <input type="email" placeholder="Your business email" />
+          <button class="get-started-btn">Get Started</button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="card-preview">
+          <div class="card-header">
+            <div class="card-logo"></div>
+            <div class="card-info">
+              <p class="card-name">Chris Johnson</p>
+              <p class="card-subtitle">Business Account</p>
+            </div>
+          </div>
+          <div class="card-balance">$1,676,580</div>
+          <div class="card-visual">
+            <div class="card-chip"></div>
+            <div class="card-brand">VISA</div>
+          </div>
+          <div class="card-actions">
+            <button class="card-action">Download Card</button>
+            <button class="card-action">Bank Account</button>
+          </div>
+          <button class="action-button">Add Money</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="section-header">
+        <p class="section-label">FUTURE FORWARD</p>
+        <h2>Creating a family budget<br />with your scale.</h2>
+      </div>
+      <div class="feature-description">
+        <p>To create a family budget, start by listing your total monthly income. Divide your expenses into fixed (rent, utilities) and variable (groceries, entertainment) categories. Allocate portions of your income to each category, ensuring your expenses do not exceed your income. Review your budget regularly to make necessary adjustments, helping your family achieve financial stability and meet savings goals.</p>
+      </div>
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-icon transfers-icon"></div>
+          <h3>Free transfers</h3>
+          <p>Create financial transactions and automate repeat purchases by scheduling recurring payments</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon account-icon"></div>
+          <h3>Multiple account</h3>
+          <p>Run your business accounts from one card account and generate cards on multi-device with protection</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon security-icon"></div>
+          <h3>Unmatched security</h3>
+          <p>Securely manage your financial information with 2FA, card locking, and fraud prevention</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <div class="section-divider"></div>
+      <h2>Why they prefer Loanease</h2>
+      <div class="testimonial-grid">
+        <div class="stat-card">
+          <h2 class="stat-number">"Smart Loans Made Simple with Loanease."</h2>
+            <p>Best rates. Fast process. Zero hassle.
+              Your loan, your way—Loanease has your back!.</p>
+        </div>
+        <div class="feature-highlight">
+          <h2 class="stat-number">"Loanease: The smarter, easier way to get your loan."</h2>
+          <p>Because we make loans simple, fast, and tailored just for you—no hassle, no hidden charges, just smart solutions.</p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="companies">
+      <h2>We've helped<br />innovative companies</h2>
+      <p>Hundreds of top apps and brands are benefiting from better rates & big improvements with us</p>
+      <div class="stats">
+        <div class="stat">
+          <h2>24%</h2>
+          <p>Revenue business</p>
+        </div>
+        <div class="stat">
+          <h2>180K</h2>
+          <p>In annual revenue</p>
+        </div>
+        <div class="stat">
+          <h2>10+</h2>
+          <p>Months of runway</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-content">
+        <h2>Ready to finish up your<br /> L0ANS</h2>
+        <p>"Close your home loan journey with ease—Loanease is here!"</p>
+        <div class="cta-buttons">
+          <button class="get-started-btn">Get Started Free</button>
+          <button class="learn-more-btn">Learn More</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer">
+      <p>©Finpay 2025. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
