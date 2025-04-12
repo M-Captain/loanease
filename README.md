@@ -1,4 +1,4 @@
-# loanease
+# LoanEase
 Sure! Here's a **detailed project description** for your **Loan Repayment Optimizer** that combines financial logic, Python programming, and optimization techniques:
 
 ---
