@@ -76,5 +76,3 @@ This project is a Python-based financial tool that helps individuals or families
 - Budgeting tools or fintech applications that want to provide **personalized debt payoff plans**.<br>
 
 ---
-
-Let me know if you want a one-paragraph summary or a version for GitHub `README.md` too!
